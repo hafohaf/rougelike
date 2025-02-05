@@ -38,6 +38,7 @@ public class Player_movement_controlle : MonoBehaviour
     private bool isDashing;
     private bool canDash=true;
     private bool canshoot=true;
+    public float rotZ;
     
     private void Start()
     {
@@ -66,7 +67,7 @@ public class Player_movement_controlle : MonoBehaviour
         Vector3 rotation=mausepos-gun.transform.position;
        // Debug.Log($"mauseposX: {mausepos.x}");
         //Debug.Log($"mauseposY: {mausepos.y}");
-        float rotZ= Mathf.Atan2(rotation.y,rotation.x)*Mathf.Rad2Deg;
+        rotZ= Mathf.Atan2(rotation.y,rotation.x)*Mathf.Rad2Deg;
         gun.transform.rotation=Quaternion.Euler(0,0,rotZ);
         if (Input.GetKeyDown(KeyCode.Space) && canDash)
         {
@@ -142,11 +143,12 @@ public class Player_movement_controlle : MonoBehaviour
 
     }
     System.Collections.IEnumerator Performshoot()
-    {
-        GameObject bullets = Instantiate(bullet,new Vector2(shootpoint.x,shootpoint.y),Quaternion.identity);
+    {   
         canshoot=false;
-        bullet bulle = collision.GetComponent<bullet>();
-        bulle letbulletflying(mausepos);
+        GameObject bullets = Instantiate(bullet,new Vector2(shootpoint.transform.position.x,shootpoint.transform.position.y),Quaternion.identity );
+        
+        bullet bulle = bullets.GetComponent<bullet>();
+        bulle.letbulletflying(mausepos);
         yield return new WaitForSeconds(0.05f);
         canshoot=true;
 

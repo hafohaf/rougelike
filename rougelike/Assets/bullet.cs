@@ -7,24 +7,32 @@ public class bullet : MonoBehaviour
     
     [SerializeField] float dmg =1f;
     public Rigidbody2D rb;
+    public float life=3f;
     // Start is called before the first frame update
+    void  Awake()
+    {
+        Destroy(gameObject,life);
+    }
     void Strat()
     {
-        
+      
     }
-    public void letbulletflying(Vector2 Dir)
+    public void letbulletflying(Vector3 Dir)
     {
-        rb.AddForce(Dir * 5000f, ForceMode2D.Impulse);
-         void OnTriggerEnter2D(Collider2D collision)
+        Vector3 dir=Dir-transform.position;
+        Vector3 rotation =transform.position-Dir;
+        rb.velocity= new Vector2(dir.x,dir.y).normalized*10;
+        float rot =Mathf.Atan2(rotation.y,rotation.x)*Mathf.Rad2Deg;
+        transform.rotation=Quaternion.Euler(0,0,rot);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
         {
             enemydoing enemy = collision.GetComponent<enemydoing>();
             if(enemy!=null)
             {
-                enemy.TakeDmg(damage);
+                enemy.TakeDmg(dmg);
                 Destroy(gameObject);
             }
 
         }
-    }
-    
 }
