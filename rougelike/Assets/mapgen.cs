@@ -37,7 +37,7 @@ public class mapgen : MonoBehaviour
     void Randomwolker()
     {
         int currentwolker= Random.Range(5,maxwolker+1);
-        Debug.Log($"随机currentwolker: {currentwolker}");
+        //Debug.Log($"随机currentwolker: {currentwolker}");
         Vector3Int[] directions = new Vector3Int[]
     {
         Vector3Int.up,
@@ -50,7 +50,7 @@ public class mapgen : MonoBehaviour
             Vector3Int stratposition = new Vector3Int (Random.Range(0,maxsize + 1),Random.Range(0,maxsize + 1),0);
             
             Vector3Int currtpos=stratposition;
-            Debug.Log($"随机stratpos: {currtpos}");
+           // Debug.Log($"随机stratpos: {currtpos}");
 
             int currschritt= Random.Range(2,9);
             for(int y=0;y<currschritt;y++)
